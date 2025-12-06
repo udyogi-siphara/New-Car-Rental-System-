@@ -58,13 +58,15 @@
 
 import React from 'react'
 import { assets, dummyCarData } from '../assets/assets'
+import { useNavigate } from 'react-router-dom'
 
 const CarCard = ({ car }) => {
 
   const currency = import.meta.env.VITE_CURRENCY
+  const navigate = useNavigate()
 
   return (
-    <div className="
+    <div onClick={() => {navigate(`/car-details/${car._id}`); scrollTo(0,0)}} className="
       group rounded-2xl overflow-hidden shadow-md hover:shadow-xl bg-white
       transition-all duration-500 cursor-pointer border border-gray-100
       hover:-translate-y-2
@@ -80,7 +82,7 @@ const CarCard = ({ car }) => {
         />
 
         {car.isAvaliable && (
-            <span className="absolute top-3 left-3 bg-green-600 text-white text-xs 
+            <span className="absolute top-3 left-3 bg-primary/90 text-white text-xs 
                             px-3 py-1 rounded-full z-20 shadow-lg">
             Available Now
             </span>

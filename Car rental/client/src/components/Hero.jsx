@@ -15,7 +15,7 @@ const hero = () => {
     bg-white shadow-[0px_8px_20px_rgba(0,0,0,0.1)]'>
 
         <div className='flex flex-col md:flex-row items-start md:items-center
-        gap-10 min-md:ml-8'>
+        gap-10 min:md:ml-8'>
             <div className='flex flex-col items-start gap-2'>
                 <select required value={pickupLocation} onChange={(e)=>setPickupLocation(e.target.value)}>
                     <option value="">Pickup Location</option>
@@ -33,13 +33,14 @@ const hero = () => {
                 <label htmlFor="return-date">Return Date</label>
                 <input type="date" name='' id='return-date' className='text-sm text-gray-500' required/>
             </div>
-            <button className='flex items-center justify-center gap-1 px-9 py-3
+        </div>
+
+        <button className='flex items-center justify-center gap-1 px-9 py-3
             max-sm:mt-4 bg-primary hover:bg-primary-dull text-white rounded-full
             cursor-pointer'>
                 <img src={assets.search_icon} alt="search" className='brightness-300' />
-                Search</button>
-        </div>
-
+                Search
+        </button>
     </form>
     <img src={assets.main_car} alt="car" className='max-h-64' />
     </div>

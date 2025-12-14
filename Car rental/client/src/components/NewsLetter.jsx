@@ -2,7 +2,7 @@ import React from 'react'
 
 const NewsLetter = () => {
   return (
-    <div>
+    <div className='pt-25'>
         <section class="flex flex-col items-center text-white">
             <div class="flex flex-col items-center">
                 <h2 class="text-center text-black text-4xl font-semibold max-w-2xl">Never Miss a Deal!</h2>
@@ -10,7 +10,7 @@ const NewsLetter = () => {
             </div>
             <div class="flex items-center justify-center mt-10 border border-slate-700 focus-within:outline focus-within:outline-indigo-600 text-sm rounded-full h-14 max-w-xl w-full">
                 <input class="bg-transparent outline-none rounded-full px-4 h-full flex-1 placeholder:text-slate-400" placeholder="Enter your email address" type="text" />
-                <button class="bg-indigo-600 text-white rounded-full h-11 mr-1 px-10 flex items-center justify-center hover:bg-indigo-700 active:scale-95 transition">Subscribe</button>
+                <button class="bg-primary-dull text-white rounded-full h-11 mr-1 px-10 flex items-center justify-center hover:bg-indigo-700 active:scale-95 transition">Subscribe</button>
             </div>
         </section>
     </div>

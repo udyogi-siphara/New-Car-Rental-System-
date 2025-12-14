@@ -66,7 +66,7 @@ const cardsData = [
             }
         `}</style>
 
-            <div className="pt-14 marquee-row w-full mx-auto max-w-5xl overflow-hidden relative">
+            <div className="pt-20 marquee-row w-full mx-auto max-w-5xl overflow-hidden relative">
 
                    <Title title='What Our Customer Say' subTitle="iscover why discerning travelers choose StayVenture 
                    for their luxury accommodations around the world." /> 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Navbar from './components/Navbar'
 import {Routes,Route, useLocation } from 'react-router-dom'
 import Home from './pages/Home'
@@ -11,6 +11,7 @@ import AddCar from './pages/owner/AddCar'
 import Dashboard from './pages/owner/Dashboard'
 import ManageCars from './pages/owner/ManageCars'
 import Managebooking from './pages/owner/Managebooking'
+import Login from './components/Login'
 
 
 const App = () => {
@@ -20,7 +21,9 @@ const App = () => {
 
   return (
     <>
-        {!isOwnerPath && <Navbar setShowLogin={setShowLogin} />}
+        {showLogin && <Login setShowLogin={setShowLogin}/>}
+        
+        {!isOwnerPath && <Navbar setShowLogin={setShowLogin}/>}
     <Routes>
       <Route path='/' element={<Home/>}/>
       <Route path='/car-details/:id' element={<CarDetails/>}/>

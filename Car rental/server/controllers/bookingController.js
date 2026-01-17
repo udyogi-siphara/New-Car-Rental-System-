@@ -10,7 +10,7 @@ const checkAvailability = async (car, pickupDate, returnDate)=>{
         returnDate : {$gte: pickupDate},
     })
 
-    return Booking.length === 0;
+    return bookings.length === 0;
 }
 
 
@@ -63,7 +63,7 @@ export const createBooking = async (req,res)=>{
         const price = clearImmediate.pricePerDay * noOfDays;
 
 
-        await booking.create({car,owner: carData.owner, user:_id, pickupDate, returnDate, price})
+        await Booking.create({car,owner: carData.owner, user:_id, pickupDate, returnDate, price})
 
         res.json({success:true, message:"Booking Created"})
 
@@ -78,7 +78,7 @@ export const getUserBookings = async(req, res)=>{
     try {
 
         const {_id} = req.user;
-        const bookings =await Booking.finf({user:_id}).populate("car").sort
+        const bookings =await Booking.find({user:_id}).populate("car").sort
         ({createdAt:-1})
         res.json({success:true, bookings})
         

@@ -9,9 +9,9 @@ const bookingSchema = new mongoose.Schema({
     returnDate : {type: Date, required: true},
     status: {type: String, enum: ["pending", "confirmed", "canceled"], default:"pending"},
     price :{type: Number,required: true},
-    
+
 }, {timestamps: true})
 
-const Booking = mongoose.model('Booking', carSchema)
+const Booking = mongoose.model('Booking', bookingSchema)
 
 export default Booking;

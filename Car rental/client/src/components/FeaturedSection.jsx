@@ -49,6 +49,7 @@ import { assets } from '../assets/assets'
 import CarCard from './CarCard'
 import { useNavigate } from 'react-router-dom'
 import {useAppContext} from '../context/AppContext.jsx'
+import {motion} from 'motion/react'
 
 const FeaturedSection = () => {
 
@@ -56,27 +57,48 @@ const FeaturedSection = () => {
   const {cars} = useAppContext();
 
   return (
-    <div className="w-full flex flex-col items-center py-24 px-6 md:px-16 lg:px-24 xl:px-32 bg-linear-to-b from-white to-gray-50">
+    <motion.div 
+    initial={{opacity:0, y:40}}
+    whileInView={{opacity:1, y:0}}
+    transition={{duration:1, ease:'easeOut'}}
+    className="w-full flex flex-col items-center py-24 px-6 md:px-16 lg:px-24 xl:px-32 bg-linear-to-b from-white to-gray-50">
 
       {/* Section Title */}
-      <div className="text-center max-w-2xl">
+      <motion.div 
+      initial={{opacity:0, y:20}}
+      whileInView={{opacity:1, y:0}}
+      transition={{duration:1, delay:0.5}}
+      className="text-center max-w-2xl">
         <Title 
           title="Featured Vehicles"
           subTitle="Explore a curated selection of premium vehicles perfect for your next adventure."
         />
-      </div>
+      </motion.div>
 
       {/* Cars Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-16 w-full">
+      <motion.div 
+      initial={{opacity:0, y:100}}
+      whileInView={{opacity:1, y:0}}
+      transition={{delay:0.5, duration:1}}
+      
+      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-16 w-full">
         {cars.slice(0, 6).map((car) => (
-          <div key={car._id} >
+          <motion.div 
+          initial={{opacity:0, scale:0.95}}
+          whileInView={{opacity:1, scale:1}}
+          transition={{duration:0.4, ease:"easeOut"}}
+          key={car._id} >
             <CarCard car={car} />
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* Explore All Button */}
-      <button
+      <motion.button
+        initial={{opacity:0, y:20}}
+        whileInView={{opacity:1, y:0}}
+        transition={{delay:0.6, duration:0.4}}
+
         onClick={() => {
           navigate('/cars')
           scrollTo(0, 0)
@@ -86,9 +108,9 @@ const FeaturedSection = () => {
       >
         <span className="font-medium text-gray-700 text-lg">Explore All Cars</span>
         <img src={assets.arrow_icon} alt="arrow" className="w-5 h-5" />
-      </button>
+      </motion.button>
 
-    </div>
+    </motion.div>
   )
 }
 

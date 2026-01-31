@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {assets, menuLinks} from '../assets/assets'
-import {data, Link, useLocation, useNavigate} from 'react-router-dom'
+import {Link, useLocation, useNavigate} from 'react-router-dom'
 import { useAppContext } from '../context/AppContext'
 import toast from 'react-hot-toast'
 

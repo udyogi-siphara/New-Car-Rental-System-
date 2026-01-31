@@ -43,7 +43,7 @@
 
 // export default FeaturedSection
 
-import React from 'react'
+
 import Title from './Title'
 import { assets } from '../assets/assets'
 import CarCard from './CarCard'

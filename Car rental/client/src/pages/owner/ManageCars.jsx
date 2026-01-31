@@ -1,18 +1,62 @@
 import React, { useEffect, useState } from 'react'
 import Title from '../../components/owner/Title'
-import { assets, dummyCarData } from '../../assets/assets'
+import { assets } from '../../assets/assets'
+import {useAppContext} from '../../context/AppContext.jsx'
+import toast from 'react-hot-toast'
 
 const ManageCars = () => {
 
-  const currency = import.meta.env.VITE_CURRENCY 
-  const [cars, setCars] = useState([])
+  const {isOwner, axios, currency, cars, setCars} = useAppContext()
+
   const fetchOwnerCars =  async ()=>{
-    setCars(dummyCarData)
+    try {
+      const {data} = await axios.get('/api/owner/cars')
+      if(data.success){
+        setCars(data.cars)
+      }else{
+        toast.error(data.message)
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
+
+  const toggleAvailability =  async (carId)=>{
+    try {
+      const {data} = await axios.post('/api/owner/toggle-car', {carId})
+      if(data.success){
+        toast.success(data.message)
+        fetchOwnerCars()
+      }else{
+        toast.error(data.message)
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
+
+  const deleteCar =  async (carId)=>{
+    try {
+
+      const confirm = window.confirm('Are you sure you want to delete this car?')
+
+      if(!confirm) return null
+
+      const {data} = await axios.post('/api/owner/delete-car', {carId})
+      if(data.success){
+        toast.success(data.message)
+        fetchOwnerCars()
+      }else{
+        toast.error(data.message)
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }
   }
   
   useEffect(()=>{
-    fetchOwnerCars()
-  },[])
+   isOwner && fetchOwnerCars()
+  },[isOwner])
 
   return (
     <div className='px-4 pt-10 md:px-10 w-full'>
@@ -39,7 +83,7 @@ const ManageCars = () => {
                   rounded-md object-cover'/>
                   <div className='max-md:hidden'>
                     <p className='font-medium'>{car.brand} {car.model}</p>
-                    <p className='text-xs text-gray-500'>{car.seating_capacity} | {car.transmission}</p>
+                    <p className='text-xs text-gray-500'>{car.seating_capacity} | {car.transmisson}</p>
                   </div>
                 </td>
 
@@ -53,9 +97,11 @@ const ManageCars = () => {
                 </td>
 
                 <td className='flex items-center p-3'>
-                  <img src={car.isAvaliable ? assets.eye_close_icon : assets.eye_icon}
+                  <img onClick={()=> toggleAvailability(car._id)} src={car.isAvaliable ? assets.eye_close_icon : assets.eye_icon}
                    alt=""  className='cursor-pointer'/>
-                   <img src={assets.delete_icon} alt="" className='cursor-pointer' />
+
+                   <img onClick={()=> deleteCar(car._id)} src={assets.delete_icon} 
+                   alt="" className='cursor-pointer' />
                 </td>
               </tr>
             ))}

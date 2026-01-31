@@ -3,7 +3,7 @@ import Booking from "../models/Booking.js";
 import Car from "../models/Car.js";
 import User from "../models/User.js";
 import fs from "fs"
-import { changeBookingStatus } from "./bookingController.js";
+
 
 
 // API to change role of user

@@ -57,7 +57,7 @@
 
 
 import React from 'react'
-import { assets, dummyCarData } from '../assets/assets'
+import { assets } from '../assets/assets'
 import { useNavigate } from 'react-router-dom'
 
 const CarCard = ({ car }) => {
@@ -125,7 +125,7 @@ const CarCard = ({ car }) => {
 
           <div className="flex items-center">
             <img src={assets.car_icon} className="w-4 h-4 mr-2 opacity-70" />
-            <span>{car.transmission}</span>
+            <span>{car.transmisson}</span>
           </div>
 
           <div className="flex items-center">

@@ -56,14 +56,36 @@ export const createBooking = async (req,res)=>{
 
         const carData = await Car.findById(car)
 
+        //new code
+        if (!carData) {
+            return res.json({ success: false, message: "Car not found" });
+        }
+
+
         //Calculate price based on pickupDate and returnDate
         const picked = new Date(pickupDate);
         const returned = new Date(returnDate);
+
+        //new code
+         if (returned <= picked) {
+            return res.json({
+                success: false,
+                message: "Return date must be after pickup date",
+            });       
+        }
         const noOfDays = Math.ceil((returned - picked)/ (1000*60*60*24))
-        const price = clearImmediate.pricePerDay * noOfDays;
+        //const price = clearImmediate.pricePerDay * noOfDays;
+        // new code
+        const price = carData.pricePerDay * noOfDays;
 
 
-        await Booking.create({car,owner: carData.owner, user:_id, pickupDate, returnDate, price})
+        await Booking.create({car,
+            owner: carData.owner, 
+            user:_id, 
+            pickupDate, 
+            returnDate,
+            price
+        })
 
         res.json({success:true, message:"Booking Created"})
 
@@ -113,7 +135,7 @@ export const changeBookingStatus = async(req, res)=>{
     try {
 
          const {_id} = req.user;
-         const {bookingId, status} = re.body;
+         const {bookingId, status} = req.body;
 
          const booking = await Booking.findById(bookingId)
 

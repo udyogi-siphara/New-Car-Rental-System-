@@ -11,7 +11,7 @@ const hero = () => {
   const handleSearch = (e)=>{
     e.preventDefault()
     navigate('/cars?pickupLocation=' + pickupLocation + '&pickupDate=' 
-        + pickupDate + '&returnDate' + returnDate
+        + pickupDate + '&returnDate=' + returnDate
     )
   }
 

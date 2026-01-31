@@ -1,22 +1,44 @@
 import React, { useEffect, useState } from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
-import {assets, dummyCarData} from '../assets/assets'
+import {assets} from '../assets/assets'
 import Loader from '../components/Loader'
+import {useAppContext} from '../context/AppContext.jsx'
+import toast from 'react-hot-toast'
 
 const CarDetails = () => {
 
   const {id} = useParams()
+  const{cars, axios, pickupDate, returnDate, setPickupDate, setReturnDate, currency} = useAppContext() 
+
   const navigate = useNavigate()
   const [car, setCar] = useState(null)
-  const currency = import.meta.env.VITE_CURRENCY
+  
 
   const handleSubmit = async (e)=>{
       e.preventDefault();
+      try {
+       const{data} = await axios.post('api/booking/create',{
+          car: id,
+          pickupDate ,
+          returnDate
+      })
+
+      if(data.success){
+        toast.success(data.message)
+        navigate('/my-bookings')
+      }else{
+        toast.error(data.message)
+      }
+      } catch (error) {
+          toast.error(error.message)
+
+        
+      }
   }
 
   useEffect(() => {
-    setCar(dummyCarData.find(car => car._id === id))
-  },[id])
+    setCar(cars.find(car => car._id === id))
+  },[cars, id])
 
 
   return car ? (
@@ -43,7 +65,7 @@ const CarDetails = () => {
                       {[
                         {icon: assets.users_icon, text: `${car.seating_capacity} Seats`},
                         {icon: assets.fuel_icon, text: car.fuel_type},
-                        {icon: assets.car_icon, text: car.transmission},
+                        {icon: assets.car_icon, text: car.transmisson},
                         {icon: assets.location_icon, text: car.location},
                       ].map(({icon, text}) => (
                         <div key={text} className='flex flex-col items-center bg-light
@@ -86,14 +108,16 @@ const CarDetails = () => {
               <hr className='border-borderColor my-6'/>
               <div className='flex flex-col gap-2'>
                 <label htmlFor="pickup-date">Pickup Date</label>
-                <input type="date" className='border border-borderColor px-3 py-2
+                <input value={pickupDate} onChange={(e) => setPickupDate(e.target.value)}
+                type="date" className='border border-borderColor px-3 py-2
                 rounded-lg' required id='pickup-date' min={new Date().toISOString().
                   split('T')[0]}/>
               </div>
 
               <div className='flex flex-col gap-2'>
                 <label htmlFor="return-date">Return Date</label>
-                <input type="date" className='border border-borderColor px-3 py-2
+                <input value={returnDate} onChange={(e) => setReturnDate(e.target.value)} 
+                type="date" className='border border-borderColor px-3 py-2
                 rounded-lg' required id='return-date'/>
               </div>
 

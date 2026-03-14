@@ -32,40 +32,40 @@ const Sidebar = () => {
 
   return (
     <div className='relative min-h-screen md:flex flex-col items-center
-    pt-8 max-w-13 md:max-w-60 w-full border-r border-borderColor text-sm'>
+    pt-8 max-w-13 md:max-w-64 w-full bg-dark-card border-r border-white/5 text-sm'>
 
       <div className='group relative'>
         <label htmlFor="image">
-          <img src={image ? URL.createObjectURL(image) : user?.image || "https://unsplash.com/photos/shallow-focus-photography-of-woman-outdoor-during-day-rDEOVtE7vOshttps://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D w=300" } alt="
-          " className='h-9 md:h-14 w-9 md:w-14 rounded-full mx-auto' />
+          <img src={image ? URL.createObjectURL(image) : user?.image || assets.user_profile } alt="profile" className='h-9 md:h-16 w-9 md:w-16 rounded-full mx-auto object-cover ring-2 ring-primary/30' />
           <input type="file" id="image" accept='image/*' hidden onChange={e =>
             setImage(e.target.files[0])}/>
 
             <div className='absoulte hidden top-0 right-0 left-0 bottom-0
-            bg-black/10 rounded-full group-hover:flex 
+            bg-black/10 rounded-full group-hover:flex
             items-center justify-center cursor-pointer'>
               <img src={assets.edit_icon} alt="" />
             </div>
         </label>
       </div>
        {image && (
-        <button className='absolute top-0 right-0 flex p-2 gap-1
-        bg-primary/10 text-primary cursor-pointer' onClick={updateImage}>Save 
-        <img src={assets.check_icon} width={13} alt=""/></button>
-       )} 
+        <button className='absolute top-2 right-2 flex px-3 py-1.5 gap-1.5 items-center
+        bg-primary text-white text-xs rounded-lg cursor-pointer font-medium
+        shadow-lg shadow-primary/30' onClick={updateImage}>Save
+        <img src={assets.check_icon} width={13} alt="" className='brightness-200'/></button>
+       )}
 
-       <p className='mt-2 text-base max-md:hidden'>{user?.name}</p>
+       <p className='mt-3 text-base max-md:hidden text-white font-medium'>{user?.name}</p>
+       <p className='text-xs text-white/40 max-md:hidden'>Car Owner</p>
 
-       <div className='w-full'>
+       <div className='w-full mt-6'>
         {ownerMenuLinks.map((link, index) => (
-            <NavLink key={index} to={link.path} className={`relative flex 
-            items-center gap-2 w-full py-3 pl-4 first:mt-6 ${link.path === location.pathname ? 
-            'bg-primary/10 text-primary' : 'text-gray-600'}`}>
+            <NavLink key={index} to={link.path} className={`relative flex
+            items-center gap-3 w-full py-3.5 pl-5 transition-all duration-200
+            ${link.path === location.pathname ?
+            'bg-primary/15 text-primary border-r-[3px] border-primary' : 'text-white/50 hover:text-white/80 hover:bg-white/5'}`}>
               <img src={link.path === location.pathname ? link.coloredIcon : link.
-                icon} alt="car icon" />
-                <span className='max-md:hidden'>{link.name}</span>
-                <div className={`${link.path === location.pathname && 'bg-primary'} 
-                w-1.5 h-8 rounded-1 right-0 absolute`}></div>
+                icon} alt="car icon" className={link.path !== location.pathname ? 'brightness-200 opacity-50' : ''} />
+                <span className='max-md:hidden font-medium'>{link.name}</span>
             </NavLink>
         ))}
        </div>

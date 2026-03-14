@@ -53,55 +53,66 @@ const ManageCars = () => {
       toast.error(error.message)
     }
   }
-  
+
   useEffect(()=>{
    isOwner && fetchOwnerCars()
   },[isOwner])
 
   return (
-    <div className='px-4 pt-10 md:px-10 w-full'>
-      <Title title="Manage Cars" subTitle="View all listed cars, update their 
+    <div className='px-6 pt-10 md:px-10 w-full'>
+      <Title title="Manage Cars" subTitle="View all listed cars, update their
       details, or remove them from the booking platform"/>
 
-      <div className='max-w-3xl w-full rounded-md overflow-hidden border
-      border-borderColor mt-6'>
+      <div className='max-w-4xl w-full rounded-2xl overflow-hidden border
+      border-gray-100 mt-8 bg-white shadow-sm'>
         <table className='w-full border-collapse text-left text-sm text-gray-600'>
-          <thead className='text-gray-500'>
-            <tr>
-              <th className='p-3 font-medium'>Car</th>
-              <th className='p-3 font-medium max-md:hidden'>Category</th>
-              <th className='p-3 font-medium'>Price</th>
-              <th className='p-3 font-medium max-md:hidden'>Status</th>
-              <th className='p-3 font-medium'>Actions</th>
+          <thead>
+            <tr className='bg-gray-50/80'>
+              <th className='p-4 font-semibold text-dark text-xs uppercase tracking-wider'>Car</th>
+              <th className='p-4 font-semibold text-dark text-xs uppercase tracking-wider max-md:hidden'>Category</th>
+              <th className='p-4 font-semibold text-dark text-xs uppercase tracking-wider'>Price</th>
+              <th className='p-4 font-semibold text-dark text-xs uppercase tracking-wider max-md:hidden'>Status</th>
+              <th className='p-4 font-semibold text-dark text-xs uppercase tracking-wider'>Actions</th>
             </tr>
           </thead>
           <tbody>
             {cars.map((car, index)=>(
-              <tr key={index} className='border-t border-borderColor'>
-                <td className='p-3 flex items-center gap-3'>
+              <tr key={index} className='border-t border-gray-100 hover:bg-gray-50/50
+              transition-colors duration-200'>
+                <td className='p-4 flex items-center gap-3'>
                   <img src={car.image} alt="" className='h-12 w-12 aspect-square
-                  rounded-md object-cover'/>
+                  rounded-xl object-cover ring-1 ring-gray-100'/>
                   <div className='max-md:hidden'>
-                    <p className='font-medium'>{car.brand} {car.model}</p>
-                    <p className='text-xs text-gray-500'>{car.seating_capacity} | {car.transmisson}</p>
+                    <p className='font-semibold text-dark'>{car.brand} {car.model}</p>
+                    <p className='text-xs text-gray-400'>{car.seating_capacity} seats | {car.transmisson}</p>
                   </div>
                 </td>
 
-                <td className='p-3 max-md:hidden'>{car.category}</td>
-                <td className='p-3'>{currency}{car.pricePerDay}/day</td>
+                <td className='p-4 max-md:hidden'>
+                  <span className='px-3 py-1 bg-gray-100 rounded-lg text-xs font-medium'>{car.category}</span>
+                </td>
+                <td className='p-4 font-bold text-dark'>{currency}{car.pricePerDay}<span className='text-gray-400 font-normal'>/day</span></td>
 
-                <td className='p-3 max-md:hidden'>
-                  <span className={`px-3 py-1 rounded-full text-xs ${car.isAvaliable ? 'bg-green-100 text-green-500' : 'bg-red-100 text-red-500'}`}>
+                <td className='p-4 max-md:hidden'>
+                  <span className={`px-3 py-1.5 rounded-full text-xs font-semibold ${car.isAvaliable ? 'bg-green-50 text-green-600 ring-1 ring-green-100' : 'bg-red-50 text-red-500 ring-1 ring-red-100'}`}>
                     {car.isAvaliable ? "Available" : "Unavailable"}
                   </span>
                 </td>
 
-                <td className='flex items-center p-3'>
-                  <img onClick={()=> toggleAvailability(car._id)} src={car.isAvaliable ? assets.eye_close_icon : assets.eye_icon}
-                   alt=""  className='cursor-pointer'/>
+                <td className='flex items-center gap-2 p-4'>
+                  <button onClick={()=> toggleAvailability(car._id)}
+                    className='w-8 h-8 rounded-lg bg-gray-100 hover:bg-primary/10
+                    flex items-center justify-center transition-all cursor-pointer'>
+                    <img src={car.isAvaliable ? assets.eye_close_icon : assets.eye_icon}
+                     alt="" className='w-4 h-4'/>
+                  </button>
 
-                   <img onClick={()=> deleteCar(car._id)} src={assets.delete_icon} 
-                   alt="" className='cursor-pointer' />
+                  <button onClick={()=> deleteCar(car._id)}
+                    className='w-8 h-8 rounded-lg bg-gray-100 hover:bg-red-50
+                    flex items-center justify-center transition-all cursor-pointer'>
+                    <img src={assets.delete_icon}
+                     alt="" className='w-4 h-4' />
+                  </button>
                 </td>
               </tr>
             ))}

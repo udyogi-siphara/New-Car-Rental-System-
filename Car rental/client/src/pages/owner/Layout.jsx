@@ -14,11 +14,13 @@ const Layout = () => {
     }
   },[isOwner])
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col min-h-screen bg-gray-50'>
       <NavbarOwner/>
-      <div className='flex'>
+      <div className='flex flex-1'>
         <Sidebar/>
-        <Outlet/>
+        <div className='flex-1 overflow-auto'>
+          <Outlet/>
+        </div>
       </div>
     </div>
   )

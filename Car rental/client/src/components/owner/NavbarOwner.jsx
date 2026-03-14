@@ -9,12 +9,18 @@ const NavbarOwner = () => {
 
   return (
     <div className='flex items-center justify-between px-6
-    md:px-10 py-4 text-gray-500 border-b border-borderColor
+    md:px-10 py-4 text-white/80 bg-dark border-b border-white/5
     relative transition-all'>
         <Link to='/'>
-          <img src={assets.logo} alt="" className='h-7' />
+          <img src={assets.logo} alt="" className='h-8 brightness-200' />
         </Link>
-        <p>Welcome, {user?.name || "owner"}</p>
+        <div className='flex items-center gap-3'>
+          <div className='w-8 h-8 rounded-full bg-gradient-to-br from-primary to-purple-600
+          flex items-center justify-center text-white text-sm font-bold'>
+            {user?.name?.charAt(0)?.toUpperCase() || 'O'}
+          </div>
+          <p className='text-white/60 text-sm'>Welcome, <span className='text-white font-medium'>{user?.name || "owner"}</span></p>
+        </div>
     </div>
   )
 }

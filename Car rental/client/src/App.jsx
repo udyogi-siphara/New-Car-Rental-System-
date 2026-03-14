@@ -12,6 +12,7 @@ import Dashboard from './pages/owner/Dashboard'
 import ManageCars from './pages/owner/ManageCars'
 import Managebooking from './pages/owner/Managebooking'
 import Login from './components/Login'
+import ChatBot from './components/ChatBot'
 import { Toaster } from 'react-hot-toast'
 import { useAppContext } from './context/AppContext'
 
@@ -26,7 +27,7 @@ const App = () => {
         <Toaster/>
 
         {showLogin && <Login/>}
-        
+
         {!isOwnerPath && <Navbar/>}
     <Routes>
       <Route path='/' element={<Home/>}/>
@@ -38,12 +39,14 @@ const App = () => {
         <Route path='add-car' element={<AddCar/>}/>
         <Route path='manage-cars' element={<ManageCars/>}/>
         <Route path='manage-bookings' element={<Managebooking/>}/>
-      </Route>  
+      </Route>
 
     </Routes>
-    
+
     {!isOwnerPath && <Footer/>}
-    
+
+    {!isOwnerPath && <ChatBot/>}
+
     </>
   )
 }
